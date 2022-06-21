@@ -1,7 +1,5 @@
-- name: Touch
-  ansible.builtin.file:
-    path: /etc/foo.conf
-    state: touch
-    mode: u+rw,g-wx,o-rwx
-    modification_time: preserve
-    access_time: preserve
+---
+- name: Install mysql python package
+  ansible.builtin.package:
+    name: "{{ mysql_python_package_rhel }}"
+    state: present

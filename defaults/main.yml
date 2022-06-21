@@ -1,2 +1,12 @@
 ---
-# variables
+
+mariadb_version: 10.5.16
+
+
+mysql_root_username: root
+mysql_user_name: root
+mysql_user_password: thisisabadpass
+
+#mysql_python_package_debian: python3-mysqldb
+mysql_python_package_debian: python3-pymysql
+mysql_python_package_rhel: python3-PyMySQ

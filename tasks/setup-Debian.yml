@@ -1,8 +1,14 @@
 ---
-- name: Touch
-  ansible.builtin.file:
-    path: /etc/foo.conf
-    state: touch
-    mode: u+rw,g-wx,o-rwx
-    modification_time: preserve
-    access_time: preserve
+- name: Install mysql python package
+  ansible.builtin.package:
+    name: "{{ mysql_python_package_debian }}"
+    state: present
+
+
+- name: Install libncurses5 for mysql client
+  ansible.builtin.package:
+    name: libncurses5
+    state: present
+
+
+    

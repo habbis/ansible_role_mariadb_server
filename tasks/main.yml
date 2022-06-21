@@ -1,9 +1,12 @@
 ---
-- include_tasks: setup-RedHat.yml
-  when: ( ansible_os_family == 'RedHat' or ansible_pkg_mgr == "dnf" or ansible_pkg_mgr == "yum" )
 
 - include_tasks: setup-Debian.yml
-  when: (ansible_distribution == "Debian")
+  when: ansible_os_family == 'Debian' 
 
-- include_tasks: setup-Ubuntu.yml
-  when: (ansible_distribution == "Ubuntu")
+- include_tasks: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include_tasks: install_mariadb_server.yml
+
+- include_tasks: secure_installation.yml
+
