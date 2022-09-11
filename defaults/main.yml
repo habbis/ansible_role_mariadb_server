@@ -8,6 +8,6 @@ mysql_user_password: thisisabadpass
 
 #mysql_python_package_debian: python3-mysqldb
 mysql_python_package_debian: python3-pymysql
-mysql_python_package_rhel: python3-PyMySQ
+mysql_python_package_rhel: python3-PyMySQL
 # install new database disable if database exist
 install_new_database: true
