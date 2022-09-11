@@ -1,8 +1,8 @@
 ---
 - name: Install mysql python package
-  ansible.builtin.package:
+  ansible.builtin.apt:
     name: "{{ mysql_python_package_debian }}"
-    state: present
+    update_cache: yes
 
 
 - name: Install libncurses5 for mysql client

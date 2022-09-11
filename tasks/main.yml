@@ -8,5 +8,5 @@
 
 - include_tasks: install_mariadb_server.yml
 
-- include_tasks: secure_installation.yml
+#- include_tasks: secure_installation.yml
 

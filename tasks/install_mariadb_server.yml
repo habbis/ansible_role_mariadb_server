@@ -9,11 +9,17 @@
     name: mysql
     group: mysql
 
-- name: download mariadb server "{{ mariadb_version }}" and untar 
+#- name: check if mariadb tarball exist
+#  stat:
+#    path: "/usr/local/mariadb-{{ mariadb_version }}-linux-systemd-x86_64"
+#  register: mariadb_folder_from_tarball
+
+- name: download mariadb server and untar
   ansible.builtin.unarchive:
-    src: "https://archive.mariadb.org/mariadb-{{ mariadb_version }}/bintar-linux-systemd-x86_64/mariadb-{{ mariadb_version }}-linux-systemd-x86_64.tar.gz"
+    src: 'https://archive.mariadb.org/mariadb-{{ mariadb_version }}/bintar-linux-systemd-x86_64/mariadb-{{ mariadb_version }}-linux-systemd-x86_64.tar.gz'
     dest: /usr/local/
     remote_src: yes
+  #when: mariadb_folder_from_tarball.stat.exist == False
 
 - name: Create a symbolic link mysql
   ansible.builtin.file:
@@ -38,26 +44,34 @@
     group: root
     mode: '0644'
 
-- name: mysql logg dir
+- name: mysql "{{ item.dir }}" dir
   ansible.builtin.file:
-    path: /var/log/mysql
+    path: "{{ item.dir }}"
     owner: mysql
     group: mysql
     state: directory
     recurse: yes
-    mode: '0644'
-
-- name: mysql data dir
-  ansible.builtin.file:
-    path: /var/lib/mysql
-    owner: mysql
-    group: mysql
-    state: directory
-    recurse: yes
-    mode: '0755'
+    mode: "{{ item.permission }}"
+  loop:
+    - { dir: '/var/log/mysql', permission: '644' }
+    - { dir: '/var/lib/mysql', permission: '755' }
 
 - name: install db mariadb
   command: /usr/local/mysql/scripts/mysql_install_db
+  when: install_new_database
+
+- name: mysql "{{ item.dir }}" dir
+  ansible.builtin.file:
+    path: "{{ item.dir }}"
+    owner: mysql
+    group: mysql
+    state: directory
+    recurse: yes
+    mode: "{{ item.permission }}"
+  loop:
+    - { dir: '/var/log/mysql', permission: '644' }
+    - { dir: '/var/lib/mysql', permission: '755' }
+  when: install_new_database
 
 - name: copy mariadb systemd service
   ansible.builtin.copy:
