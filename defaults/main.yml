@@ -2,7 +2,6 @@
 
 mariadb_version: 10.5.16
 
-
 mysql_root_username: root
 mysql_user_name: root
 mysql_user_password: thisisabadpass
