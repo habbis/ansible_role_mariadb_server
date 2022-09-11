@@ -53,8 +53,8 @@
     recurse: yes
     mode: "{{ item.permission }}"
   loop:
-    - { dir: '/var/log/mysql', permission: '644' }
-    - { dir: '/var/lib/mysql', permission: '755' }
+    - {dir: '/var/log/mysql', permission: '644'}
+    - {dir: '/var/lib/mysql', permission: '755'}
 
 - name: install db mariadb
   command: /usr/local/mysql/scripts/mysql_install_db
@@ -69,8 +69,8 @@
     recurse: yes
     mode: "{{ item.permission }}"
   loop:
-    - { dir: '/var/log/mysql', permission: '644' }
-    - { dir: '/var/lib/mysql', permission: '755' }
+    - {dir: '/var/log/mysql', permission: '644'}
+    - {dir: '/var/lib/mysql', permission: '755'}
   when: install_new_database
 
 - name: copy mariadb systemd service
@@ -88,4 +88,3 @@
     daemon_reload: yes
     enabled: yes
     state: started
-

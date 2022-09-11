@@ -4,11 +4,7 @@
     name: "{{ mysql_python_package_debian }}"
     update_cache: yes
 
-
 - name: Install libncurses5 for mysql client
   ansible.builtin.package:
     name: libncurses5
     state: present
-
-
-    
